@@ -424,11 +424,11 @@
     </div>
 
     <div class="button-wrap">
-        <a class="btn-enquiry" href="">
+        <button type="button" class="btn-enquiry" onclick="formbutton('showForm')">
             <span class="btn-inner">📤 Make Enquiries Now</span>
-        </a>
+        </button>
 
-        <a class="btn-watch" href="">
+        <a class="btn-watch" href="https://youtube.com/@pixoryarchives?si=8azFkvzWmb97I6Zv">
             <span class="btn-inner">▶ See How It Works</span>
         </a>
     </div>
@@ -471,10 +471,43 @@
     </div>
   </footer>
 
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
   <script>
-    async function makeEnquiries() {
-      return null
-    }
+    globalThis.formbutton = globalThis.formbutton || function(){
+      formbutton.q = formbutton.q || [];
+      formbutton.q.push(arguments);
+    };
+    formbutton("create", {
+      action: "https://formspree.io/f/xojoyryz",
+      title: "How can we help?",
+      description: "Please fill out the form below and we will get back to you as soon as possible!",
+      theme: "classic",
+      fields: [
+        { 
+          type: "number", 
+          label: "WhatsApp Line:", 
+          name: "phone",
+          required: true,
+          placeholder: "Your Whatsapp Line"
+        },
+        {
+          type: "textarea",
+          label: "Message:",
+          name: "message",
+          placeholder: "What do you want to know?",
+          required: true,
+        },
+        { type: "submit" }      
+      ],
+      styles: {
+        title: {
+          backgroundColor: "#E05A2B",
+        },
+        button: {
+          backgroundColor: "#E05A2B"
+        }
+      }
+    });
   </script>
 
 </body>
