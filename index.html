@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MemoryBook</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --coral: #E05A2B; 
+      --coral-dark: #B84820;
+      --coral-light: #F9A87A;
+      --cream: #FDF6F0;
+      --cream-dark: #F0E8DF;
+      --ink: #1A1510;
+      --ink-soft: #4A3F35;
+      --ink-muted: #8A7A6E;
+      --green: #2DB87D;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 24px 40px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #E05A2B22 0%, transparent 70%);
+      top: -80px;
+      right: -120px;
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--coral);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      width: fit-content;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral-light);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.7);
+      }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(44px, 12vw, 72px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
+
+    h1 .accent {
+      color: var(--coral);
+    }
+
+    h1 .line2 {
+      display: block;
+    }
+
+    .subhead {
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      max-width: 380px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+
+    .subhead strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .benefit-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid var(--cream-dark);
+      border-radius: 100px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-soft);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefit-pill .icon {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .benefit {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .button-wrap {
+      background: #fff;
+      width: fit-content;
+      padding: 24px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+      border: 1px solid var(--cream-dark);
+      border-radius: 20px;
+      box-shadow: 0 4px 32px rgba(224, 90, 43, 0.08);
+      animation: fadeUp 0.5s 0.35s ease both;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-enquiry {
+      display: flex;
+      width: fit-content;
+      background: var(--coral);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .btn-watch {
+      display: flex;
+      width: fit-content;
+      background: var(--cream);
+      color: #000000;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .btn-enquiry:hover {
+      background: var(--coral-dark);
+    }
+
+    .btn-watch:hover {
+      background: var(--cream-dark);
+    }
+
+    .btn-enquiry:active, .btn-watch:active {
+      transform: scale(0.98);
+    }
+
+    .btn-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .how-section {
+      padding: 60px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 7vw, 40px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      color: var(--ink);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 48px;
+      bottom: -20px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--cream-dark), transparent);
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--coral);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .step-body {
+      padding-bottom: 32px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    footer {
+      display: flex;
+      width: 90%;
+      margin: auto;
+      margin-bottom: 50px;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: var(--coral);
+      position: relative;
+      z-index: 1;
+      border-radius: 12px;
+    }
+
+    footer .icon {
+        font-size: 40px;
+        line-height: 1;
+    }
+
+    footer .footer-note strong {
+        font-family: 'Syne', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--cream);
+    }
+
+    footer .footer-note p {
+        font-size: 10px;
+        color: var(--cream-dark);
+        line-height: 1.5;
+        font-weight: 300;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      UniAbuja Memories · Forever
+    </div>
+
+    <h1>
+      Don't Let 4 Amazing<br>
+      <span class="line2">Years Stay Locked <br>in <span class="accent">Snapchat.</span></span>
+    </h1>
+
+    <p class="subhead">
+      Turn your <strong>campus memories</strong> into a beautiful <strong>memory book</strong>. We design it. You treasure it forever✨
+    </p>
+
+    <div class="benefits">
+      <div class="benefit-pill">
+        <span class="icon">⇪</span>
+        <div class="benefit">
+            <strong>Easy Upload</strong>
+            Simply upload your photos
+        </div>
+      </div>
+      <div class="benefit-pill">
+        <span class="icon">✨</span>
+        <div class="benefit">
+            <strong>We Design</strong>
+            Professionally designed layouts and cover themes
+        </div>
+      </div>
+      <div class="benefit-pill">
+        <span class="icon">📚</span>
+        <div class="benefit">
+            <strong>Premium Quality</strong>
+            Hardcover albumbooks delivered to you
+        </div>
+      </div>
+    </div>
+
+    <div class="button-wrap">
+        <a class="btn-enquiry" href="">
+            <span class="btn-inner">📤 Make Enquiries Now</span>
+        </a>
+
+        <a class="btn-watch" href="">
+            <span class="btn-inner">▶ See How It Works</span>
+        </a>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <p class="section-eyebrow">How it works</p>
+    <h2 class="section-title">Three steps.<br>That's it.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Upload Your Photos</div>
+          <div class="step-desc">Select and upload all your favorite UniAbuja campus moments. More Photos. Better Memory Book!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">We Build Your Book</div>
+          <div class="step-desc">We create a stunning memory book with special cover themes that tells your unique story.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Cherish Forever</div>
+          <div class="step-desc">Get a premium hardcover memory book delivered right to your doorstep.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="icon">✨</span>
+    <div class="footer-note">
+        <strong>Your University Journey is One of a Kind.</strong>
+        <p>Make sure your memories are too.</p>
+    </div>
+  </footer>
+
+  <script>
+    async function makeEnquiries() {
+      return null
+    }
+  </script>
+
+</body>
+
+</html>
