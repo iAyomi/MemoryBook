@@ -18,15 +18,14 @@
     }
 
     :root {
-      --coral: #E05A2B; 
-      --coral-dark: #B84820;
-      --coral-light: #F9A87A;
       --cream: #FDF6F0;
-      --cream-dark: #F0E8DF;
+      --cream-dark: #d9d3cd;
       --ink: #1A1510;
       --ink-soft: #4A3F35;
       --ink-muted: #8A7A6E;
       --green: #2DB87D;
+      --green-dark: #174834;
+      --green-light: #e5f2ec;
     }
 
     html {
@@ -35,7 +34,7 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
+      background: var(--green-light);
       color: var(--ink);
       min-height: 100vh;
       overflow-x: hidden;
@@ -78,7 +77,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--coral);
+      background: var(--green-dark);
       color: #fff;
       font-family: 'Syne', sans-serif;
       font-size: 11px;
@@ -96,7 +95,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--coral-light);
+      background: var(--green-light);
       animation: pulse 2s ease-in-out infinite;
     }
 
@@ -125,7 +124,7 @@
     }
 
     h1 .accent {
-      color: var(--coral);
+      color: var(--green-dark);
     }
 
     h1 .line2 {
@@ -199,7 +198,7 @@
     .btn-enquiry {
       display: flex;
       width: fit-content;
-      background: var(--coral);
+      background: var(--green-dark);
       color: #ffffff;
       border: none;
       border-radius: 12px;
@@ -218,7 +217,7 @@
     .btn-watch {
       display: flex;
       width: fit-content;
-      background: var(--cream);
+      background: var(--cream-dark);
       color: #000000;
       border-radius: 12px;
       padding: 16px;
@@ -234,11 +233,13 @@
     }
 
     .btn-enquiry:hover {
-      background: var(--coral-dark);
+      background: var(--cream-dark);
+      color: #000000;
     }
 
     .btn-watch:hover {
-      background: var(--cream-dark);
+      background: var(--green-dark);
+      color: #ffffff;
     }
 
     .btn-enquiry:active, .btn-watch:active {
@@ -264,7 +265,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--coral);
+      color: var(--green-dark);
       margin-bottom: 10px;
     }
 
@@ -305,7 +306,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: var(--coral);
+      background: var(--green-dark);
       color: #fff;
       font-family: 'Syne', sans-serif;
       font-size: 15px;
@@ -344,7 +345,7 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
-      background: var(--coral);
+      background: var(--green-dark);
       position: relative;
       z-index: 1;
       border-radius: 12px;
@@ -387,16 +388,16 @@
   <section class="hero">
     <div class="badge">
       <div class="badge-dot"></div>
-      UniAbuja Memories · Forever
+      Your Favorite Moments · Forever
     </div>
 
     <h1>
-      Don't Let 4 Amazing<br>
-      <span class="line2">Years Stay Locked <br>in <span class="accent">Snapchat.</span></span>
+      Don't Let Your Favorite<br>
+      <span class="line2">Moments Stay Locked <br>in <span class="accent">Your Gallery.</span></span>
     </h1>
 
     <p class="subhead">
-      Turn your <strong>campus memories</strong> into a beautiful <strong>memory book</strong>. We design it. You treasure it forever✨
+      Turn your <strong>favorite memories</strong> into a beautiful <strong>memory book</strong>. We design it. You treasure it forever✨
     </p>
 
     <div class="benefits">
@@ -443,7 +444,7 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Upload Your Photos</div>
-          <div class="step-desc">Select and upload all your favorite UniAbuja campus moments. More Photos. Better Memory Book!</div>
+          <div class="step-desc">Select and upload all your favorite moments. More Photos. Better Memory Book!</div>
         </div>
       </div>
       <div class="step">
@@ -466,8 +467,8 @@
   <footer>
     <span class="icon">✨</span>
     <div class="footer-note">
-        <strong>Your University Journey is One of a Kind.</strong>
-        <p>Make sure your memories are too.</p>
+        <strong>Your Journey through Life is One of a Kind.</strong>
+        <p>Make sure your memories are treasurable keepsakes too.</p>
     </div>
   </footer>
 
